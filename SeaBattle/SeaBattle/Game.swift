@@ -63,6 +63,67 @@ func printMap(map: Array<Array<Character>>) {
 }
 
 
+func createShip(map: inout Array<Array<Character>>, points: [Int]) {
+
+    var i: Int  = 0
+    while i < points.count {
+        map[points[i]][points[i + 1]] = "#"
+        i += 2
+    }
+
+}
+
+
+func putShip(map: inout Array<Array<Character>>, lenShip: Int) {
+
+    var x = Int.random(in: 0..<10)
+    var y = Int.random(in: 0..<10)
+
+//    var x = 4
+//    var y = 6
+    var numbers = Array<Int>()
+
+    let horzOrVert = Int.random(in: 0..<2)
+
+    print("x = \(x + 1), y = \(y + 1)")
+    var i = 0;
+    while i < lenShip {
+
+        if map[x][y] != "." {
+            i = 0
+            numbers.removeAll()
+        }
+        else if x == 0 || y == 0 {
+            i = 0
+            numbers.removeAll()
+            if x == 0 {
+                x = 9
+                y -= 1
+            }
+            else if y == 0 {
+                y = 9
+                x -= 1
+            }
+        }
+        else {
+            numbers.append(x)
+            numbers.append(y)
+            i += 1
+            if x > 0 {
+                x -= 1
+            }
+            else if y > 0 {
+                y -= 1
+            }
+        }
+
+
+    }
+//    createShip()
+    createShip(map: &map, points: numbers)
+}
+
+
 class Player {
 
     var playerName: String
@@ -86,35 +147,16 @@ func startGame() {
 
 //    let _ = Player(name: "Jan")
     let player = Player(name: "Jan")
-    player.map[0][5] = "*"
+//    player.map[0][5] = "*"
 
+    putShip(map: &player.map, lenShip: 4)
     printMap(map: player.map)
-
 
 
     let AI = Player(name: "AI")
 //    let _ = Player(name: "AI")
     printMap(map: AI.map)
 
-//    player.playerName = ("")
-
-//    var mapPlayer = [
-//        "..........",
-//        "..........",
-//        "..........",
-//        "..........",
-//        "..........",
-//        "..........",
-//        "..........",
-//        "..........",
-//        "..........",
-//        ".........."]
-
-//    var mapAI = mapPlayer
-
-//var players: [Player] = []
-
-//players.append()
 
 
 
