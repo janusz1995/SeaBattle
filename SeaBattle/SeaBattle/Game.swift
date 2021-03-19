@@ -62,6 +62,27 @@ func printMap(map: Array<Array<Character>>) {
     print("")
 }
 
+//func x y XXXXXXXXX{}
+
+func CheckX(x: Int, y: Int) -> Bool
+{
+    return (x < 10 && x > 0 && y > 0 && y < 10)
+}
+
+func paintRoundShip(x: Int, y: Int, map: inout Array<Array<Character>>) {
+
+
+    x y && map[x][y]=='.'
+    x-1 y
+    x+1 y
+    x-1 y-1
+    x+1 y-1
+    x-1 y+1
+    x+1 y+1
+    if (map[x][y]=="#") {
+        paintRoundShip(x: x, y: y, map: map)
+    }
+}
 
 func createShip(map: inout Array<Array<Character>>, points: [Int]) {
 
@@ -74,54 +95,57 @@ func createShip(map: inout Array<Array<Character>>, points: [Int]) {
 }
 
 
+
+//func x y CheckKillAllShip -> Bool {}
+
+
 func putShip(map: inout Array<Array<Character>>, lenShip: Int) {
 
+    var i = 0
     var x = Int.random(in: 0..<10)
     var y = Int.random(in: 0..<10)
+    let isHorisontal = Int.random(in: 0..<2)
 
-//    var x = 4
-//    var y = 6
     var numbers = Array<Int>()
+//    var x = 0
+//    var y = 0
 
-    let horzOrVert = Int.random(in: 0..<2)
 
-    print("x = \(x + 1), y = \(y + 1)")
-    var i = 0;
+//    print("x start = \(x), y start = \(y)")
+//    print("x = \(x + 1), y = \(y + 1)")
+
     while i < lenShip {
-
-        if map[x][y] != "." {
+        if x < 0 || y < 0 {
             i = 0
             numbers.removeAll()
-        }
-        else if x == 0 || y == 0 {
-            i = 0
-            numbers.removeAll()
-            if x == 0 {
+            if x < 0 {
                 x = 9
-                y -= 1
-            }
-            else if y == 0 {
+                if isHorisontal == 0 {
+                    y -= 1
+                }
+            } else {
                 y = 9
-                x -= 1
+                if isHorisontal == 1 {
+                    x -= 1
+                }
             }
-        }
-        else {
+        } else if map[x][y] != "." {
+            i = 0
+            numbers.removeAll()
+        } else {
             numbers.append(x)
             numbers.append(y)
             i += 1
-            if x > 0 {
+            if isHorisontal == 0 {
                 x -= 1
-            }
-            else if y > 0 {
+            } else {
                 y -= 1
             }
         }
-
-
     }
-//    createShip()
     createShip(map: &map, points: numbers)
 }
+
 
 
 class Player {
