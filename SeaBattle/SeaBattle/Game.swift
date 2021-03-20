@@ -223,6 +223,23 @@ class Player {
     func getMap() -> Array<Array<Character>> {
         return self.map
     }
+
+
+
+    func makeShot(cordX: Int, cordY: Int) -> Bool {
+
+        if self.map[cordX][cordY] == "." {
+            self.map[cordX][cordY] = "*"
+            print("Miss")
+        }
+        else if self.map[cordX][cordY] == "#" {
+            self.map[cordX][cordY] = "@"
+            print("Good Job")
+            return true
+        }
+        return false
+    }
+
 }
 
 //func changeMap(map: inout Array<Array<Character>>) {
@@ -271,14 +288,19 @@ func startGame() {
 //    let _ = Player(name: "AI")
     printMap(map: AI.getMap(), isAI: AI.isAI)
 
-    while player.countsShip != 0 && AI.countsShip != 0 {
 
-    }
-    if player.countsShip > 0 {
-        print("You WIN")
-    } else {
-        print("You are trying but You Losed ... Try again U can do it")
-    }
+    var name = readLine()
+   // name = name?.trimmingCharacters(in: .whitespacesAndNewlines)
+    name = name?.replacingOccurrences(of: " ", with: "")
+//    name?.trimmingCharacters(in: Character(" "))
+    print("\(name)")
+//    while player.countsShip != 0 && AI.countsShip != 0 {
+//    }
+//    if player.countsShip > 0 {
+//        print("You WIN")
+//    } else {
+//        print("You are trying but You Losed ... Try again U can do it")
+//    }
 
 
 
