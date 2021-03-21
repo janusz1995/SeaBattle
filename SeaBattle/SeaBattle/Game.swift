@@ -184,6 +184,7 @@ func putShip(map: inout Array<Array<Character>>, lenShip: Int) {
 
 class Player {
 
+    var shots = 0
     var isAI: Bool
     var countsShip: Int
     var playerName: String
@@ -288,29 +289,79 @@ func startGame() {
 //    let _ = Player(name: "AI")
     printMap(map: AI.getMap(), isAI: AI.isAI)
 
-
-    var name = readLine()
+    parseCord()
+}
+//    var step = true
    // name = name?.trimmingCharacters(in: .whitespacesAndNewlines)
-    name = name?.replacingOccurrences(of: " ", with: "")
+//    name = name?.replacingOccurrences(of: " ", with: "")
 //    name?.trimmingCharacters(in: Character(" "))
-    print("\(name)")
+//    print("\(name)")
 //    while player.countsShip != 0 && AI.countsShip != 0 {
-//    }
+//        step += 1
+//        if step == true {
+//            var name = readLine()
+//
+//        } else {
+//
+//        }
+
 //    if player.countsShip > 0 {
 //        print("You WIN")
 //    } else {
 //        print("You are trying but You Losed ... Try again U can do it")
 //    }
 
+func checkValid(point: String?) {
+//    var y = 0
+    let str = Array(point ?? "")
+//    print("\(a)")
+    if str.count == 2 {
+        let num = Int(String(str[1]))
+        print("\(num ?? 101)")
+    } else if str.count == 3 {
 
+    } else {
+//        return (False, _, _)
+    }
+//    return (checkLetter(), x, y)
 
-
-
-
-
-
-
-
-
-
+//    if point?.count == 2 {
+//        let x = Array(point ?? "")[0..<2]
+//        print("\(x)")
+//        let num = Int(String(x[1]))
+//        print("\(num ?? 101)")
+//    } else if point.count == 3 {
+//        let x = Array(point ?? "")[0..<3]
+//    } else {
+//       error
+//    }
+//    if 1 < point.count < 4 {
+//
+//    }
 }
+
+func parseCord() {
+    var point = readLine()
+    point = point?.replacingOccurrences(of: " ", with: "")
+    point = point?.uppercased()
+//    if point {
+        checkValid(point: point)
+//    }
+}
+
+func getCord(isAI: Bool) {
+//    if isAI == false {
+//
+//    } else {
+//
+//    }
+}
+
+
+
+
+
+
+
+
+
