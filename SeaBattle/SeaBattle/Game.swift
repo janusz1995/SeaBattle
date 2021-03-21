@@ -311,18 +311,27 @@ func startGame() {
 //        print("You are trying but You Losed ... Try again U can do it")
 //    }
 
-func checkValid(point: String?) {
+func getPoint(point: String?) -> Bool {
 //    var y = 0
+    var num: Int?
     let str = Array(point ?? "")
-//    print("\(a)")
+
+    let check = checkValidLetter(inputSymbol: str[0])
+    if check == 21 {
+        print("\(check)")
+        return false
+    }
     if str.count == 2 {
-        let num = Int(String(str[1]))
+        num = Int(String(str[1]))
         print("\(num ?? 101)")
     } else if str.count == 3 {
-
+        num = Int(String(str[1...2]))
+        print("\(num ?? 101)")
     } else {
-//        return (False, _, _)
+        print("Change points!")
+        return false
     }
+    return true
 //    return (checkLetter(), x, y)
 
 //    if point?.count == 2 {
@@ -340,12 +349,28 @@ func checkValid(point: String?) {
 //    }
 }
 
+func checkValidLetter(inputSymbol: Character) -> Int {
+
+    var index = 0
+    let letters = "ABCDEFGHIJ"
+
+    for sym in letters {
+        if sym == inputSymbol {
+            return index
+        }
+        index += 1
+    }
+    return 21
+}
+
 func parseCord() {
     var point = readLine()
     point = point?.replacingOccurrences(of: " ", with: "")
     point = point?.uppercased()
 //    if point {
-        checkValid(point: point)
+    if getPoint (point: point) {
+        print("Ha ha")
+    }
 //    }
 }
 
