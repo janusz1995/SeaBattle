@@ -188,20 +188,30 @@ class Player {
     var isAI: Bool
     var countsShip: Int
     var playerName: String
+    private var myMove: Bool
     private var map: Array<Array<Character>> = []
 
     private let fieldLine = ".........."
     private let ships = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1]
 
     init(name: String, isAI: Bool) {
-        self.playerName = name
         self.isAI = isAI
+        self.myMove = false
+        self.playerName = name
         self.countsShip = ships.count
         for _ in 0...10 {
             map.append(Array(fieldLine))
         }
         fillFieldShips()
         changeMap()
+    }
+
+    func setMovePlayer(bool: Bool) {
+        self.myMove = bool
+    }
+
+    func getMyMove() -> Bool {
+        return self.myMove
     }
 
     private func fillFieldShips() {
@@ -225,71 +235,50 @@ class Player {
         return self.map
     }
 
-
-
-    func makeShot(cordX: Int, cordY: Int) -> Bool {
-
-        if self.map[cordX][cordY] == "." {
-            self.map[cordX][cordY] = "*"
+    func makeShot(x: Int, y: Int) -> Bool {
+        if self.map[x][y] == "." {
+            self.map[x][y] = "*"
             print("Miss")
+            self.myMove = true
+            return false
         }
-        else if self.map[cordX][cordY] == "#" {
-            self.map[cordX][cordY] = "@"
+        else if self.map[x][y] == "#" {
+            self.map[x][y] = "@"
             print("Good Job")
+            self.myMove = false
             return true
         }
         return false
     }
-
 }
 
-//func changeMap(map: inout Array<Array<Character>>) {
-//
-//    for i in 0..<(map.count) {
-//        for j in 0..<(map[i].count) {
-//            if map[i][j] == "X" {
-//                map[i][j] = "."
-//            }
-//        }
-//    }
-//}
 
 //class Player
 
 func startGame() {
 
-//    let _ = Player(name: "Jan")
     let player = Player(name: "Jan", isAI: false)
-//    player.
-//    player.map[0][5] = "*"
 
-    // Four
-//    putShip(map: &player.map, lenShip: 4)
-//
-//    // Three
-//    putShip(map: &player.map, lenShip: 3)
-//    putShip(map: &player.map, lenShip: 3)
-//
-//    // Two
-//    putShip(map: &player.map, lenShip: 2)
-//    putShip(map: &player.map, lenShip: 2)
-//    putShip(map: &player.map, lenShip: 2)
-//
-//    // One
-//    putShip(map: &player.map, lenShip: 1)
-//    putShip(map: &player.map, lenShip: 1)
-//    putShip(map: &player.map, lenShip: 1)
-//    putShip(map: &player.map, lenShip: 1)
-
-//    changeMap(map: &player.map)
     printMap(map: player.getMap(), isAI: player.isAI)
 
 
     let AI = Player(name: "AI", isAI: true)
 //    let _ = Player(name: "AI")
     printMap(map: AI.getMap(), isAI: AI.isAI)
+    player.setMovePlayer(bool: true)
 
-    parseCord()
+    for _ in 0...3 {
+
+        if player.getMyMove() == true {
+            parseCordPlayer(player: player, AI: AI)
+        } else {
+            print("AI Move. piu piu piu")
+            player.setMovePlayer(bool: true)
+
+        }
+        printMap(map: player.getMap(), isAI: player.isAI)
+        printMap(map: AI.getMap(), isAI: AI.isAI)
+    }
 }
 //    var step = true
    // name = name?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -310,45 +299,6 @@ func startGame() {
 //    } else {
 //        print("You are trying but You Losed ... Try again U can do it")
 //    }
-
-func getPoint(point: String?) -> Bool {
-//    var y = 0
-    var num: Int?
-    let str = Array(point ?? "")
-
-    let check = checkValidLetter(inputSymbol: str[0])
-    if check == 21 {
-        print("\(check)")
-        return false
-    }
-    if str.count == 2 {
-        num = Int(String(str[1]))
-        print("\(num ?? 101)")
-    } else if str.count == 3 {
-        num = Int(String(str[1...2]))
-        print("\(num ?? 101)")
-    } else {
-        print("Change points!")
-        return false
-    }
-    return true
-//    return (checkLetter(), x, y)
-
-//    if point?.count == 2 {
-//        let x = Array(point ?? "")[0..<2]
-//        print("\(x)")
-//        let num = Int(String(x[1]))
-//        print("\(num ?? 101)")
-//    } else if point.count == 3 {
-//        let x = Array(point ?? "")[0..<3]
-//    } else {
-//       error
-//    }
-//    if 1 < point.count < 4 {
-//
-//    }
-}
-
 func checkValidLetter(inputSymbol: Character) -> Int {
 
     var index = 0
@@ -360,27 +310,60 @@ func checkValidLetter(inputSymbol: Character) -> Int {
         }
         index += 1
     }
-    return 21
+    return 42
 }
 
-func parseCord() {
+
+func getPoint(point: String?) -> (Bool, Int?, Int) {
+//    var y = 0
+    var x: Int?
+    let str = Array(point ?? "")
+
+    let y = checkValidLetter(inputSymbol: str[0])
+    if y == 42 {
+//        print("\(y)")
+        return (false, 42, 42)
+    }
+    if str.count == 2 {
+        x = Int(String(str[1]))
+//        print("\(x ?? 42)")
+    } else if str.count == 3 {
+        x = Int(String(str[1...2]))
+//        print("\(x ?? 42)")
+    } else {
+        print("Change points!")
+        return (false, 42, 42)
+    }
+    x? -= 1
+    return (true, x, y)
+}
+
+//func makeShot() {
+//
+//}
+
+func parseCordPlayer(player: Player, AI: Player) {
     var point = readLine()
     point = point?.replacingOccurrences(of: " ", with: "")
     point = point?.uppercased()
-//    if point {
-    if getPoint (point: point) {
-        print("Ha ha")
+
+    let (check, x, y) = getPoint(point: point)
+    if check == true {
+        print(" Cord X = \(x ?? 42); Cord Y = \(y) ")
+        player.setMovePlayer(bool: AI.makeShot(x: x ?? 42, y: y))
+    } else {
+        print("Try Again: write X and Y!")
     }
-//    }
 }
 
-func getCord(isAI: Bool) {
+//func getCord() {
+//    parseCordPlayer()
 //    if isAI == false {
 //
 //    } else {
 //
 //    }
-}
+//}
 
 
 
