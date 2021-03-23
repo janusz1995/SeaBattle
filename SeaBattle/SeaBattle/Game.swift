@@ -5,34 +5,6 @@
 
 import Foundation
 
-//extension String {
-//
-//    var length: Int {
-//        return count
-//    }
-//
-//    subscript (i: Int) -> String {
-//        return self[i ..< i + 1]
-//    }
-//
-//    func substring(fromIndex: Int) -> String {
-//        return self[min(fromIndex, length) ..< length]
-//    }
-//
-//    func substring(toIndex: Int) -> String {
-//        return self[0 ..< max(0, toIndex)]
-//    }
-//
-//    subscript (r: Range<Int>) -> String {
-//        let range = Range(uncheckedBounds: (lower: max(0, min(length, r.lowerBound)),
-//                upper: min(length, max(0, r.upperBound))))
-//        let start = index(startIndex, offsetBy: range.lowerBound)
-//        let end = index(start, offsetBy: range.upperBound - range.lowerBound)
-//        return String(self[start ..< end])
-//    }
-//}
-
-
 func printLetters() {
 
     let letters = " ABCDEFGHIJ"
@@ -70,21 +42,6 @@ func printMap(map: Array<Array<Character>>, isAI: Bool) {
     print("")
 }
 
-func checkValidpoint(x: Int, y: Int) -> Bool {
-    return (x < 10 && x >= 0 && y >= 0 && y < 10)
-}
-
-func paintRoundShip(x: Int, y: Int, map: inout Array<Array<Character>>) {
-
-    for i in -1...1 {
-        for j in -1...1 {
-            if checkValidpoint(x: x + i, y: y + j) == true && map[x + i][y + j] == "." {
-                map[x + i][y + j] = "X"
-            }
-        }
-    }
-}
-
 // write only 3 symbols - @ X * " " . TODO !!!!!! or write only "." if "#"
 
 //func checkNewShip(map: inout Array<Array<Character>>, points: [Int]) -> Bool {
@@ -102,79 +59,61 @@ func paintRoundShip(x: Int, y: Int, map: inout Array<Array<Character>>) {
 //    return true
 //}
 
-func createShip(map: inout Array<Array<Character>>, points: [Int]) {
-
-    for i in 0..<(points.count) where i % 2 == 0 {
-        map[points[i]][points[i + 1]] = "#"
-    //    paintRoundShip(x: points[i], y: points[i + 1], map: &map)
-
-    }
-
-    for num in 0..<(points.count) where num % 2 == 0 {
-        paintRoundShip(x: points[num], y: points[num + 1], map: &map)
-    }
-}
-
-func putShip(map: inout Array<Array<Character>>, lenShip: Int) {
-
-    var i = 0
-    var x = Int.random(in: 0..<10)
-    var y = Int.random(in: 0..<10)
-    let isHorisontal = Int.random(in: 0..<2)
-
-    while map[x][y] != "." {
-        x = Int.random(in: 0..<10)
-        y = Int.random(in: 0..<10)
-    }
-    var numbers = Array<Int>()
-//    var x = 0
-//    var y = 0
-
+//func putShip(map: inout Array<Array<Character>>, lenShip: Int) {
 //
-//    print("x start = \(x), y start = \(y)")
-//    print("x = \(x + 1), y = \(y + 1)")
-
-    while i < lenShip {
-        if x < 0 || y < 0 {
-            i = 0
-            numbers.removeAll()
-            if x < 0 {
-                x = 9
-                if isHorisontal == 0 {
-                    y -= 1
-                }
-            } else {
-                y = 9
-                if isHorisontal == 1 {
-                    x -= 1
-                }
-            }
-        } else if map[x][y] != "." {
-            i = 0
-            numbers.removeAll()
-            if isHorisontal == 0 {
-                x -= 1
-            } else {
-                y -= 1
-            }
-        } else {
-            numbers.append(x)
-            numbers.append(y)
-            i += 1
-            if isHorisontal == 0 {
-                x -= 1
-            } else {
-                y -= 1
-            }
-        }
-//        if (isHorisontal == 1  && (y < 0)) || (isHorisontal == 0 && x>=0){
-//            x -= 1
-//        } else if ( isHorisontal == 0 && (x < 0)) || (isHorisontal == 1 && y>=0) {
-//            y -= 1
+//    var i = 0
+//    var x = Int.random(in: 0..<10)
+//    var y = Int.random(in: 0..<10)
+//    let isHorisontal = Int.random(in: 0..<2)
+//
+//    while map[x][y] != "." {
+//        x = Int.random(in: 0..<10)
+//        y = Int.random(in: 0..<10)
+//    }
+//    var numbers = Array<Int>()
+////    var x = 0
+////    var y = 0
+//
+////
+////    print("x start = \(x), y start = \(y)")
+////    print("x = \(x + 1), y = \(y + 1)")
+//
+//    while i < lenShip {
+//        if x < 0 || y < 0 {
+//            i = 0
+//            numbers.removeAll()
+//            if x < 0 {
+//                x = 9
+//                if isHorisontal == 0 {
+//                    y -= 1
+//                }
+//            } else {
+//                y = 9
+//                if isHorisontal == 1 {
+//                    x -= 1
+//                }
+//            }
+//        } else if map[x][y] != "." {
+//            i = 0
+//            numbers.removeAll()
+//            if isHorisontal == 0 {
+//                x -= 1
+//            } else {
+//                y -= 1
+//            }
+//        } else {
+//            numbers.append(x)
+//            numbers.append(y)
+//            i += 1
+//            if isHorisontal == 0 {
+//                x -= 1
+//            } else {
+//                y -= 1
+//            }
 //        }
-    }
-    createShip(map: &map, points: numbers)
-}
+//    }
+//    createShip(map: &map, points: numbers)
+//}
 
 //func fillField(player: Player) {
 //    for i in player.ships {
@@ -182,31 +121,152 @@ func putShip(map: inout Array<Array<Character>>, lenShip: Int) {
 //    }
 //}
 
+class Ship {
+
+    var arrPoints = Array<Int>()
+
+    private var lengthShip: Int
+    private var shipIsAlive = true
+
+    init(lenShip: Int) {
+        self.lengthShip = lenShip
+    }
+
+    func isAlive() -> Bool {
+        return self.shipIsAlive
+    }
+
+    func getLenShip() -> Int {
+        return self.lengthShip
+    }
+
+    func putShip(map: inout Array<Array<Character>>) {
+        var i = 0
+        var x = Int.random(in: 0..<10)
+        var y = Int.random(in: 0..<10)
+        let isHorisontal = Int.random(in: 0..<2)
+
+        while map[x][y] != "." {
+            x = Int.random(in: 0..<10)
+            y = Int.random(in: 0..<10)
+        }
+        var points = Array<Int>()
+//    var x = 0
+//    var y = 0
+
+//
+//    print("x start = \(x), y start = \(y)")
+//    print("x = \(x + 1), y = \(y + 1)")
+
+        while i < lengthShip {
+            if x < 0 || y < 0 {
+                i = 0
+                points.removeAll()
+                if x < 0 {
+                    x = 9
+                    if isHorisontal == 0 {
+                        y -= 1
+                    }
+                } else {
+                    y = 9
+                    if isHorisontal == 1 {
+                        x -= 1
+                    }
+                }
+            } else if map[x][y] != "." {
+                i = 0
+                points.removeAll()
+                if isHorisontal == 0 {
+                    x -= 1
+                } else {
+                    y -= 1
+                }
+            } else {
+                points.append(x)
+                points.append(y)
+                i += 1
+                if isHorisontal == 0 {
+                    x -= 1
+                } else {
+                    y -= 1
+                }
+            }
+        }
+        arrPoints = points
+        createShip(map: &map, points: points)
+        paintAroundShip(map: &map, points: points)
+    }
+
+    func paintAroundShip(map: inout Array<Array<Character>>, points: [Int]) {
+        for num in 0..<(points.count) where num % 2 == 0 {
+            paintAroundShipPoint(x: points[num], y: points[num + 1], map: &map)
+        }
+    }
+
+    private func createShip(map: inout Array<Array<Character>>, points: [Int]) {
+
+        for i in 0..<(points.count) where i % 2 == 0 {
+            map[points[i]][points[i + 1]] = "#"
+            //    paintRoundShip(x: points[i], y: points[i + 1], map: &map)
+        }
+    }
+
+    private func paintAroundShipPoint(x: Int, y: Int, map: inout Array<Array<Character>>) {
+
+        for i in -1...1 {
+            for j in -1...1 {
+                if checkValidpoint(x: x + i, y: y + j) == true && (map[x + i][y + j] == "." || map[x + i][y + j] == "*" ){
+                    map[x + i][y + j] = "X"
+                }
+            }
+        }
+    }
+
+    private func checkValidpoint(x: Int, y: Int) -> Bool {
+        return (x < 10 && x >= 0 && y >= 0 && y < 10)
+    }
+
+    func minusLenShip() {
+        if 0 < lengthShip {
+            lengthShip -= 1
+        }
+        if lengthShip == 0 {
+            self.shipIsAlive = false
+        }
+    }
+}
+
+
+
 class Player {
 
-    var shots = 0
     var isAI: Bool
-    var countsShip: Int
+    var aliveShips: Int
     var playerName: String
+    var ships = Array<Ship>()
+
     private var myMove: Bool
+    private var shipIsAlive = true
     private var map: Array<Array<Character>> = []
 
     private let fieldLine = ".........."
-    private let ships = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1]
+    private let lengthsOfShips = [4, 3, 3, 2, 2, 2, 1, 1, 1, 1]
 
     init(name: String, isAI: Bool) {
         self.isAI = isAI
         self.myMove = false
         self.playerName = name
-        self.countsShip = ships.count
+        self.aliveShips = lengthsOfShips.count
+
         for _ in 0...10 {
             map.append(Array(fieldLine))
         }
+
         fillFieldShips()
-        changeMap()
+        removeHelpfulSymInMap()
     }
 
-    func setMovePlayer(bool: Bool) {
+    func setMove(bool: Bool) {
         self.myMove = bool
     }
 
@@ -215,12 +275,15 @@ class Player {
     }
 
     private func fillFieldShips() {
-        for i in self.ships {
-            putShip(map: &self.map, lenShip: i)
+        for i in self.lengthsOfShips {
+           self.ships.append(Ship(lenShip: i))
+        }
+        for it in self.ships {
+            it.putShip(map: &map)
         }
     }
 
-    private func changeMap() { // TODO rename - delete helpful symbol in map! change X to dot
+    private func removeHelpfulSymInMap() { // TODO rename - delete helpful symbol in map! change X to dot
 
         for i in 0..<(self.map.count) {
             for j in 0..<(self.map[i].count) {
@@ -235,18 +298,89 @@ class Player {
         return self.map
     }
 
+
+//    private func checkDeathShip(x: Int, y: Int) -> Bool {
+//        var numX = 0
+//        var numY = 0
+//        for i in -1...1 {
+//            for j in -1...1 {
+//                if map[x + i][y + j] == "#" {
+//                    return false
+//                } else if map[x + i][y + j] == "@" {
+////                    return checkDeathShip(x: x + i, y: y + j)
+//                    numX = i
+//                    numY = j
+//                    break;
+//                }
+//            }
+//            if numX != 0 || numY != 0 {
+//                break;
+//            }
+//        }
+//        if numX != 0 {
+//            while map[x + numY][y] == "@" {
+//                numY += 1
+//            }
+//            if map[x + numY][y] == "#" {
+//                return false
+//            }
+//            numY -= 1
+//            while map[x + numY][y] == "@" {
+//                numY -= 1
+//            }
+//            if map[x + numY][y] == "#" {
+//                return false
+//            }
+//        } else if numY != 0 {
+//            while map[x][y + numX] == "@" {
+//                numX += 1
+//            }
+//            if map[x][y + numX] == "#" {
+//                return false
+//            }
+//            numX -= 1
+//            while map[x][y + numX] == "@" {
+//                numX -= 1
+//            }
+//            if map[x][y + numX] == "#" {
+//                return false
+//            }
+//        }
+//        return true
+//    }
+
+
+    private func checkDeathShip(x: Int, y: Int) {
+
+        for ship in ships {
+            for i in 0..<ship.arrPoints.count where i % 2 == 0 {
+                if ship.arrPoints[i] == x && ship.arrPoints[i + 1] == y {
+                    ship.minusLenShip()
+                    if ship.isAlive() == false {
+                        aliveShips -= 1
+                        ship.paintAroundShip(map: &map, points: ship.arrPoints)
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     func makeShot(x: Int, y: Int) -> Bool {
         if self.map[x][y] == "." {
             self.map[x][y] = "*"
             print("Miss")
-            self.myMove = true
+//            self.myMove = true
             return false
         }
         else if self.map[x][y] == "#" {
             self.map[x][y] = "@"
+            checkDeathShip(x: x, y: y)
             print("Good Job")
-            self.myMove = false
+//            self.myMove = false
             return true
+        } else {
+
         }
         return false
     }
@@ -258,28 +392,49 @@ class Player {
 func startGame() {
 
     let player = Player(name: "Jan", isAI: false)
-
     printMap(map: player.getMap(), isAI: player.isAI)
 
-
     let AI = Player(name: "AI", isAI: true)
-//    let _ = Player(name: "AI")
     printMap(map: AI.getMap(), isAI: AI.isAI)
-    player.setMovePlayer(bool: true)
 
+
+    player.setMove(bool: true)
+
+
+//    for item in player.ships {
+//        print("\(item.getLenShip()) = \(item.arrPoints)")
+//    }
+
+    for item in AI.ships {
+        print("\(item.getLenShip()) = \(item.arrPoints)")
+    }
     for _ in 0...3 {
 
         if player.getMyMove() == true {
             parseCordPlayer(player: player, AI: AI)
         } else {
             print("AI Move. piu piu piu")
-            player.setMovePlayer(bool: true)
-
+            player.setMove(bool: true)
         }
         printMap(map: player.getMap(), isAI: player.isAI)
         printMap(map: AI.getMap(), isAI: AI.isAI)
     }
+
+
+    // game circle
+    while  player.aliveShips != 0 && AI.aliveShips != 0 {
+
+
+
+    }
+    if player.aliveShips > 0 {
+        print("You WIN! :]")
+    } else {
+        print("You Lose :(")
+    }
+
 }
+
 //    var step = true
    // name = name?.trimmingCharacters(in: .whitespacesAndNewlines)
 //    name = name?.replacingOccurrences(of: " ", with: "")
@@ -299,6 +454,7 @@ func startGame() {
 //    } else {
 //        print("You are trying but You Losed ... Try again U can do it")
 //    }
+
 func checkValidLetter(inputSymbol: Character) -> Int {
 
     var index = 0
@@ -350,7 +506,7 @@ func parseCordPlayer(player: Player, AI: Player) {
     let (check, x, y) = getPoint(point: point)
     if check == true {
         print(" Cord X = \(x ?? 42); Cord Y = \(y) ")
-        player.setMovePlayer(bool: AI.makeShot(x: x ?? 42, y: y))
+        player.setMove(bool: AI.makeShot(x: x ?? 42, y: y))
     } else {
         print("Try Again: write X and Y!")
     }
