@@ -141,7 +141,9 @@ class Ship {
     }
 
     func putShip(map: inout Array<Array<Character>>) {
+
         var i = 0
+        var points = Array<Int>()
         var x = Int.random(in: 0..<10)
         var y = Int.random(in: 0..<10)
         let isHorisontal = Int.random(in: 0..<2)
@@ -150,11 +152,6 @@ class Ship {
             x = Int.random(in: 0..<10)
             y = Int.random(in: 0..<10)
         }
-        var points = Array<Int>()
-//    var x = 0
-//    var y = 0
-
-//
 //    print("x start = \(x), y start = \(y)")
 //    print("x = \(x + 1), y = \(y + 1)")
 
@@ -192,6 +189,7 @@ class Ship {
                 }
             }
         }
+
         arrPoints = points
         createShip(map: &map, points: points)
         paintAroundShip(map: &map, points: points)
@@ -204,15 +202,12 @@ class Ship {
     }
 
     private func createShip(map: inout Array<Array<Character>>, points: [Int]) {
-
         for i in 0..<(points.count) where i % 2 == 0 {
             map[points[i]][points[i + 1]] = "#"
-            //    paintRoundShip(x: points[i], y: points[i + 1], map: &map)
         }
     }
 
     private func paintAroundShipPoint(x: Int, y: Int, map: inout Array<Array<Character>>) {
-
         for i in -1...1 {
             for j in -1...1 {
                 if checkValidpoint(x: x + i, y: y + j) == true && (map[x + i][y + j] == "." || map[x + i][y + j] == "*" ){
@@ -237,16 +232,15 @@ class Ship {
 }
 
 
-
 class Player {
 
     var isAI: Bool
     var aliveShips: Int
     var playerName: String
-    var ships = Array<Ship>()
 
     private var myMove: Bool
     private var shipIsAlive = true
+    private var ships = Array<Ship>()
     private var map: Array<Array<Character>> = []
 
     private let fieldLine = ".........."
@@ -278,13 +272,13 @@ class Player {
         for i in self.lengthsOfShips {
            self.ships.append(Ship(lenShip: i))
         }
+
         for it in self.ships {
             it.putShip(map: &map)
         }
     }
 
-    private func removeHelpfulSymInMap() { // TODO rename - delete helpful symbol in map! change X to dot
-
+    private func removeHelpfulSymInMap() {
         for i in 0..<(self.map.count) {
             for j in 0..<(self.map[i].count) {
                 if self.map[i][j] == "X" {
@@ -298,69 +292,23 @@ class Player {
         return self.map
     }
 
-
-//    private func checkDeathShip(x: Int, y: Int) -> Bool {
-//        var numX = 0
-//        var numY = 0
-//        for i in -1...1 {
-//            for j in -1...1 {
-//                if map[x + i][y + j] == "#" {
-//                    return false
-//                } else if map[x + i][y + j] == "@" {
-////                    return checkDeathShip(x: x + i, y: y + j)
-//                    numX = i
-//                    numY = j
-//                    break;
-//                }
-//            }
-//            if numX != 0 || numY != 0 {
-//                break;
-//            }
-//        }
-//        if numX != 0 {
-//            while map[x + numY][y] == "@" {
-//                numY += 1
-//            }
-//            if map[x + numY][y] == "#" {
-//                return false
-//            }
-//            numY -= 1
-//            while map[x + numY][y] == "@" {
-//                numY -= 1
-//            }
-//            if map[x + numY][y] == "#" {
-//                return false
-//            }
-//        } else if numY != 0 {
-//            while map[x][y + numX] == "@" {
-//                numX += 1
-//            }
-//            if map[x][y + numX] == "#" {
-//                return false
-//            }
-//            numX -= 1
-//            while map[x][y + numX] == "@" {
-//                numX -= 1
-//            }
-//            if map[x][y + numX] == "#" {
-//                return false
-//            }
-//        }
-//        return true
-//    }
-
+    // TODO - DELETE WHEN FINISHED, THIS IS Help Getter!
+    func getShips() -> Array<Ship> {
+        return ships
+    }
 
     private func checkDeathShip(x: Int, y: Int) {
-
         for ship in ships {
-            for i in 0..<ship.arrPoints.count where i % 2 == 0 {
-                if ship.arrPoints[i] == x && ship.arrPoints[i + 1] == y {
-                    ship.minusLenShip()
-                    if ship.isAlive() == false {
-                        aliveShips -= 1
-                        ship.paintAroundShip(map: &map, points: ship.arrPoints)
+            if ship.isAlive() == true {
+                for i in 0..<ship.arrPoints.count where i % 2 == 0 {
+                    if ship.arrPoints[i] == x && ship.arrPoints[i + 1] == y {
+                        ship.minusLenShip()
+                        if ship.isAlive() == false {
+                            aliveShips -= 1
+                            ship.paintAroundShip(map: &map, points: ship.arrPoints)
+                        }
+                        break;
                     }
-                    break;
                 }
             }
         }
@@ -371,7 +319,7 @@ class Player {
             self.map[x][y] = "*"
             print("Miss")
 //            self.myMove = true
-            return false
+//            return false
         }
         else if self.map[x][y] == "#" {
             self.map[x][y] = "@"
@@ -380,14 +328,11 @@ class Player {
 //            self.myMove = false
             return true
         } else {
-
+            // TODO What are you doing?
         }
         return false
     }
 }
-
-
-//class Player
 
 func startGame() {
 
@@ -397,17 +342,16 @@ func startGame() {
     let AI = Player(name: "AI", isAI: true)
     printMap(map: AI.getMap(), isAI: AI.isAI)
 
-
     player.setMove(bool: true)
-
 
 //    for item in player.ships {
 //        print("\(item.getLenShip()) = \(item.arrPoints)")
 //    }
 
-    for item in AI.ships {
+    for item in AI.getShips() {
         print("\(item.getLenShip()) = \(item.arrPoints)")
     }
+
     for _ in 0...3 {
 
         if player.getMyMove() == true {
@@ -420,13 +364,13 @@ func startGame() {
         printMap(map: AI.getMap(), isAI: AI.isAI)
     }
 
-
     // game circle
-    while  player.aliveShips != 0 && AI.aliveShips != 0 {
+//    while player.aliveShips != 0 && AI.aliveShips != 0 {
+//
+//
+//
+//    }
 
-
-
-    }
     if player.aliveShips > 0 {
         print("You WIN! :]")
     } else {
@@ -469,63 +413,43 @@ func checkValidLetter(inputSymbol: Character) -> Int {
     return 42
 }
 
+func getPoint(point: String?) -> (Bool, Int, Int) {
 
-func getPoint(point: String?) -> (Bool, Int?, Int) {
-//    var y = 0
-    var x: Int?
+    var x: Int = 42
+
     let str = Array(point ?? "")
-
     let y = checkValidLetter(inputSymbol: str[0])
+
     if y == 42 {
-//        print("\(y)")
-        return (false, 42, 42)
+        return (false, x, y)
     }
-    if str.count == 2 {
-        x = Int(String(str[1]))
+    if str.count == 2 && str[1].isNumber {
+        x = Int(String(str[1]))!
 //        print("\(x ?? 42)")
-    } else if str.count == 3 {
-        x = Int(String(str[1...2]))
+    } else if str.count == 3 && str[1].isNumber && str[2].isNumber {
+        x = Int(String(str[1...2]))!
 //        print("\(x ?? 42)")
     } else {
-        print("Change points!")
-        return (false, 42, 42)
+        return (false, x, y)
     }
-    x? -= 1
+    x -= 1
     return (true, x, y)
 }
 
-//func makeShot() {
-//
-//}
-
 func parseCordPlayer(player: Player, AI: Player) {
+
     var point = readLine()
+
     point = point?.replacingOccurrences(of: " ", with: "")
     point = point?.uppercased()
 
     let (check, x, y) = getPoint(point: point)
     if check == true {
-        print(" Cord X = \(x ?? 42); Cord Y = \(y) ")
-        player.setMove(bool: AI.makeShot(x: x ?? 42, y: y))
+        print(" Cord X = \(x); Cord Y = \(y) ")
+        player.setMove(bool: AI.makeShot(x: x, y: y))
     } else {
-        print("Try Again: write X and Y!")
+        print("Enter VALID X and Y, please!")
     }
 }
-
-//func getCord() {
-//    parseCordPlayer()
-//    if isAI == false {
-//
-//    } else {
-//
-//    }
-//}
-
-
-
-
-
-
-
 
 
