@@ -238,6 +238,11 @@ class Player {
     var aliveShips: Int
     var playerName: String
 
+//    private var dir: Int
+//    private var firstHit: (Int, Int)
+//    private var lastHit: (Int, Int)
+    private var messages: [String] = []
+
     private var myMove: Bool
     private var shipIsAlive = true
     private var ships = Array<Ship>()
@@ -256,9 +261,20 @@ class Player {
             map.append(Array(fieldLine))
         }
 
+//        setDefaultFirstHit()
         fillFieldShips()
         removeHelpfulSymInMap()
     }
+
+    func printMessages() {
+        for mg in messages {
+            print("\(mg)")
+        }
+        messages.removeAll()
+    }
+//    private func setDefaultFirstHit() {
+//        self.firstHit = (-1, -1)
+//    }
 
     func setMove(bool: Bool) {
         self.myMove = bool
@@ -305,6 +321,11 @@ class Player {
                         ship.minusLenShip()
                         if ship.isAlive() == false {
                             aliveShips -= 1
+                            if isAI == false {
+                                messages.append("Computer killed your ship!")
+                            } else {
+                                messages.append("You killed computer ship!")
+                            }
                             ship.paintAroundShip(map: &map, points: ship.arrPoints)
                         }
                         break;
@@ -312,24 +333,43 @@ class Player {
                 }
             }
         }
+        //
     }
 
     // take damage
     func takeDamage(x: Int, y: Int) -> Bool {
         if self.map[x][y] == "." {
             self.map[x][y] = "*"
-            print("Miss")
+//            messages.append("Miss")
+            if self.isAI == false {
+                messages.append("Computer Missed!")
+            } else {
+                messages.append("You Missed!")
+            }
+//            print("Miss")
 //            self.myMove = true
             return false
         }
         else if self.map[x][y] == "#" {
             self.map[x][y] = "@"
+//            if isAI == true {
+//                if firstHit != (-1, -1) {
+//                    firstHit = (x, y)
+//                }
+//                lastHit = ()
+//            }
+            if isAI == false {
+                messages.append("Computer hit your ship!")
+            } else {
+                messages.append("You hit computer ship!")
+            }
             checkDeathShip(x: x, y: y)
-            print("Good Job")
+//            print("Good Job!")
 //            self.myMove = false
             return true
         } else {
             // TODO What are you doing?
+            print("WTF")
         }
         return false
     }
@@ -345,26 +385,6 @@ func startGame() {
 
     player.setMove(bool: true)
 
-//    for item in player.ships {
-//        print("\(item.getLenShip()) = \(item.arrPoints)")
-//    }
-
-//    for item in AI.getShips() {
-//        print("\(item.getLenShip()) = \(item.arrPoints)")
-//    }
-
-//    for _ in 0...3 {
-//
-//        if player.getMyMove() == true {
-//            parseCordPlayer(player: player, AI: AI)
-//        } else {
-//            print("AI Move. piu piu piu")
-//            player.setMove(bool: true)
-//        }
-//        printMap(map: player.getMap(), isAI: player.isAI)
-//        printMap(map: AI.getMap(), isAI: AI.isAI)
-//    }
-
     // game circle
     while player.aliveShips != 0 && AI.aliveShips != 0 {
 
@@ -372,8 +392,14 @@ func startGame() {
             print("\(item.getLenShip()) = \(item.arrPoints)")
         }
 
-        printMap(map: player.getMap(), isAI: player.isAI)
-        printMap(map: AI.getMap(), isAI: AI.isAI)
+        if player.getMyMove() == true {
+            printMap(map: player.getMap(), isAI: player.isAI)
+            printMap(map: AI.getMap(), isAI: AI.isAI)
+            AI.printMessages()
+        } else {
+            player.printMessages()
+        }
+
         if player.getMyMove() == true {
             parseCordPlayer(player: player, AI: AI)
         } else {
@@ -393,6 +419,7 @@ func startGame() {
 }
 
 func makeShotAI(player: Player) {
+
 
     var x = Int.random(in: 0..<10)
     var y = Int.random(in: 0..<10)
@@ -450,10 +477,13 @@ func checkValidLetter(inputSymbol: Character) -> Int {
 
 func getPoint(point: String?) -> (Bool, Int, Int) {
 
-    var x: Int = 42
-
+    var x = 42
+    var y = 42
     let str = Array(point ?? "")
-    let y = checkValidLetter(inputSymbol: str[0])
+    print(str.count)
+    if str.count != 0 {
+        y = checkValidLetter(inputSymbol: str[0])
+    }
 
     if y == 42 {
         return (false, x, y)
@@ -483,8 +513,11 @@ func parseCordPlayer(player: Player, AI: Player) {
         print(" Cord X = \(x); Cord Y = \(y) ")
         player.setMove(bool: AI.takeDamage(x: x, y: y))
     } else {
+//        player.
         print("Please enter VALID X and Y!")
     }
 }
 
+
+// TODO - array messages
 
