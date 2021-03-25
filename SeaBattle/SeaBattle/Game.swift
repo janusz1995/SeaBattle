@@ -35,12 +35,18 @@ func printMap(map: Array<Array<Character>>, isAI: Bool) {
         for j in 0..<10 {
             if isAI == true {
                 if map[i][j] == "#" { // .cornflowerBlue
-                    print(" .".backgroundColor(.blue), terminator: " ")
+                    print(" .", terminator: " ")
+                } else if map[i][j] == "@" {
+                    print(" \(map[i][j])".lightRed(), terminator: " ")
                 } else {
-                    print(" \(map[i][j])".backgroundColor(.blue), terminator: " ")
+                    print(" \(map[i][j])", terminator: " ")
                 }
             } else {
-                print(" \(map[i][j])", terminator: " ")
+                if map[i][j] == "#" {
+                    print(" \(map[i][j])".lightGreen(), terminator: " ")
+                } else {
+                    print(" \(map[i][j])", terminator: " ")
+                }
             }
         }
         print("")
@@ -357,6 +363,9 @@ func startGame() {
         }
 
     }
+
+    printMap(map: player.getMap(), isAI: player.isAI)
+    printMap(map: AI.getMap(), isAI: AI.isAI)
 
     if player.aliveShips > 0 {
         print("You WIN! :]")
