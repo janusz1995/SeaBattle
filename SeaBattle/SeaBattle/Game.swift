@@ -4,6 +4,7 @@
 //
 
 import Foundation
+//public typealias TerminalStyleCode = (open: String, close: String)
 
 func printLetters() {
 
@@ -20,9 +21,9 @@ func printMap(map: Array<Array<Character>>, isAI: Bool) {
     var numberLine = 0
 
     if isAI == false {
-        print("-----------Your Field-----------")
+        print("-----------Your Field-----------".green())
     } else {
-        print("-----------Enemy Field----------")
+        print("-----------Enemy Field----------".red())
     }
     printLetters()
     for i in 0..<10 {
@@ -33,10 +34,10 @@ func printMap(map: Array<Array<Character>>, isAI: Bool) {
         print("\(numberLine)", terminator: " ")
         for j in 0..<10 {
             if isAI == true {
-                if map[i][j] == "#" {
-                    print(" .", terminator: " ")
+                if map[i][j] == "#" { // .cornflowerBlue
+                    print(" .".backgroundColor(.blue), terminator: " ")
                 } else {
-                    print(" \(map[i][j])", terminator: " ")
+                    print(" \(map[i][j])".backgroundColor(.blue), terminator: " ")
                 }
             } else {
                 print(" \(map[i][j])", terminator: " ")

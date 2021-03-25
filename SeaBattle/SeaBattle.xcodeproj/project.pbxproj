@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5B698874E523EB989A22DA1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B698CA78A359E023B5FCD34 /* main.swift */; };
 		5B698904A45CE3D0A1935603 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B698EA18E0056F55E860F50 /* Game.swift */; };
+		5B698A2623859BE744878010 /* ColorizeSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69838D490585790173869B /* ColorizeSwift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		5B698032357CACA94A1C5FBB /* SeaBattle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SeaBattle; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B69838D490585790173869B /* ColorizeSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorizeSwift.swift; sourceTree = "<group>"; };
 		5B698CA78A359E023B5FCD34 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5B698EA18E0056F55E860F50 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -45,6 +47,7 @@
 			children = (
 				5B698CA78A359E023B5FCD34 /* main.swift */,
 				5B698EA18E0056F55E860F50 /* Game.swift */,
+				5B69838D490585790173869B /* ColorizeSwift.swift */,
 			);
 			path = SeaBattle;
 			sourceTree = "<group>";
@@ -117,6 +120,7 @@
 			files = (
 				5B698874E523EB989A22DA1C /* main.swift in Sources */,
 				5B698904A45CE3D0A1935603 /* Game.swift in Sources */,
+				5B698A2623859BE744878010 /* ColorizeSwift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
