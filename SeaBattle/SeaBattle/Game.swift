@@ -176,6 +176,10 @@ class Player {
     var playerName: String
 
     private var hit = false
+    private var dir = Array<Int>()
+    private var dirX: Int = 0
+    private var dirY: Int = 0
+
 
     private var myMove: Bool
     private var shipIsAlive = true
@@ -192,7 +196,7 @@ class Player {
         self.playerName = name
         self.aliveShips = lengthsOfShips.count
 
-        for _ in 0...10 {
+        for _ in 0..<10 {
             map.append(Array(fieldLine))
         }
         fillFieldShips()
@@ -243,7 +247,7 @@ class Player {
         return ships
     }
 
-    private func checkDeathShip(x: Int, y: Int) {
+    private func checkDeathShip(x: Int, y: Int, AI: Player) {
         for ship in ships {
             if ship.isAlive() == true {
                 for i in 0..<ship.arrPoints.count where i % 2 == 0 {
@@ -252,6 +256,10 @@ class Player {
                         if ship.isAlive() == false {
                             aliveShips -= 1
                             if isAI == false {
+                                AI.dirX = 0
+                                AI.dirY = 0
+                                AI.dir.removeAll()
+                                AI.hit = false
                                 messages.append("Computer killed your ship!")
                             } else {
                                 messages.append("You killed computer ship!")
@@ -274,9 +282,24 @@ class Player {
         if self.map[x][y] == "." {
             self.map[x][y] = "*"
             if self.isAI == false {
-                AI.hit = false
+                if AI.dirX != 0 || AI.dirY != 0 {
+                    AI.dirX = -AI.dirX
+                    AI.dirY = -AI.dirY
+                    AI.dir[0] = x
+                    AI.dir[1] = y
+                    while map[AI.dir[0] + AI.dirX][AI.dir[1] + AI.dirY] == "@" {
+                        AI.dir[0] += AI.dirX
+                        AI.dir[1] += AI.dirY
+                    }
+                }
+                else if AI.dir.count == 0 {
+                    AI.hit = false
+                }
                 messages.append("Computer Missed!")
             } else {
+//                else if self.dir.count == 0 {
+//                    AI.hit = false
+//                }
                 messages.append("You Missed!")
             }
             return false
@@ -286,11 +309,29 @@ class Player {
 
             if isAI == false {
                 AI.hit = true
+                if AI.dir.count == 2 {
+                    AI.dirX = x - AI.dir[0]
+                    AI.dirY = y - AI.dir[1]
+                    AI.dir[0] = x
+                    AI.dir[1] = y
+                } else {
+                    AI.dir.append(x)
+                    AI.dir.append(y)
+                }
                 messages.append("Computer hit your ship!")
             } else {
+//                if dir.count == 2 {
+//                    dirX = x - dir[0]
+//                    dirY = y - dir[1]
+//                    dir[0] = x
+//                    dir[1] = y
+//                } else {
+//                    dir.append(x)
+//                    dir.append(y)
+//                }
                 messages.append("You hit computer ship!")
             }
-            checkDeathShip(x: x, y: y)
+            checkDeathShip(x: x, y: y, AI: AI)
             return true
         } else {
             // TODO What are you doing?
@@ -300,27 +341,61 @@ class Player {
     }
 
 
+    private func getAgFree(player: inout Player) -> () {
+        if true {
+
+        }
+    }
+
     func makeShotAI(player: inout Player) {
         var x = Int.random(in: 0..<10)
         var y = Int.random(in: 0..<10)
 
 
-//        if hit == true {
-//            if arrPosiblePoints.count == 0 {
+        if hit == true {
+            x = dir[0]
+            y = dir[1]
+            if dirX != 0 || dirY != 0 {
+                if dir[0] + dirX >= 0 && dir[0] + dirX < 10 {
+                    x = dir[0] + dirX
+                }
+                if dir[1] + dirY >= 0 && dir[1] + dirY < 10 {
+                    y = dir[1] + dirY
+                }
+                if x == dir[0] && y == dir[1] {
+                    dirX = -dirX
+                    dirY = -dirY
+                    while player.getMap()[dir[0]][dir[1]] == "@" {
+                        dir[0] += dirX
+                        dir[1] += dirY
+                    }
+                }
+            } else if x - 1 >= 0 && player.getMap()[x - 1][y] != "*" && player.getMap()[x - 1][y] != "@" && player.getMap()[x - 1][y] != "X" {
+                x -= 1
+            } else if x + 1 < 10 && player.getMap()[x + 1][y] != "*" && player.getMap()[x + 1][y] != "@" && player.getMap()[x + 1][y] != "X" {
+                x += 1
+            } else if y + 1 < 10 && player.getMap()[x][y + 1] != "*" && player.getMap()[x][y + 1] != "@" && player.getMap()[x][y + 1] != "X" {
+                y += 1
+            } else if y - 1 >= 0 && player.getMap()[x][y - 1] != "*" && player.getMap()[x][y - 1] != "@" && player.getMap()[x][y - 1] != "X" {
+                y -= 1
+            }
+//            if dir.count != 0 {
 //
 //            } else {
 //
 //            }
-//        } else {
+
+        } else {
             while player.getMap()[x][y] == "@" || player.getMap()[x][y] == "X" || player.getMap()[x][y] == "*" {
                 x = Int.random(in: 0..<10)
                 y = Int.random(in: 0..<10)
             }
-//        }
+        }
 
         let check = player.takeDamage(x: x, y: y, AI: self)
         if check == false {
             player.setMove(bool: true)
+//            player.setMove(bool: false)
         }
 
 
