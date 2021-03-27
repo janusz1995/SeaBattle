@@ -158,8 +158,6 @@ class Player {
             return true
         } else {
             messages.append("You've already shot here!")
-            // TODO What are you doing?
-//            print("WTF")
             return true
         }
     }
@@ -182,18 +180,18 @@ class Player {
                 if x == dir[0] && y == dir[1] {
                     dirX = -dirX
                     dirY = -dirY
-                    while player.getMap()[dir[0]][dir[1]] == HIT_SHIP {
+                    while player.getMap()[dir[0] + dirX][dir[1] + dirY] == HIT_SHIP {
                         dir[0] += dirX
                         dir[1] += dirY
                     }
                 }
-            } else if x - 1 >= 0 && player.getMap()[x - 1][y] != MISS && player.getMap()[x - 1][y] != HIT_SHIP && player.getMap()[x - 1][y] != DEATH_SHIP {
+            } else if x - 1 >= 0 && checkPoints(x: x - 1, y: y, player: player) {
                 x -= 1
-            } else if x + 1 < 10 && player.getMap()[x + 1][y] != MISS && player.getMap()[x + 1][y] != HIT_SHIP && player.getMap()[x + 1][y] != DEATH_SHIP {
+            } else if x + 1 < 10 && checkPoints(x: x + 1, y: y, player: player) {
                 x += 1
-            } else if y + 1 < 10 && player.getMap()[x][y + 1] != MISS && player.getMap()[x][y + 1] != HIT_SHIP && player.getMap()[x][y + 1] != DEATH_SHIP {
+            } else if y + 1 < 10 && checkPoints(x: x, y: y + 1, player: player) {
                 y += 1
-            } else if y - 1 >= 0 && player.getMap()[x][y - 1] != MISS && player.getMap()[x][y - 1] != HIT_SHIP && player.getMap()[x][y - 1] != DEATH_SHIP {
+            } else if y - 1 >= 0 && checkPoints(x: x, y: y - 1, player: player) {
                 y -= 1
             }
         } else {
@@ -207,7 +205,10 @@ class Player {
         if check == false {
             player.setMove(bool: true)
         }
+    }
 
-
+    private func checkPoints(x: Int, y: Int, player: Player) -> Bool {
+        (player.getMap()[x][y] != MISS && player.getMap()[x][y] != HIT_SHIP &&
+                player.getMap()[x][y] != DEATH_SHIP)
     }
 }

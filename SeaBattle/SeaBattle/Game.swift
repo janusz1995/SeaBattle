@@ -132,7 +132,7 @@ class Game {
         if y == ERROR {
             return (false, x, y)
         }
-        if str.count == 2 && str[1].isNumber {
+        if str.count == 2 && str[1].isNumber && str[1] != "0" {
             x = Int(String(str[1]))!
         } else if str.count == 3 && str[1] == "1" && str[2] == "0" {
             x = Int(String(str[1...2]))!

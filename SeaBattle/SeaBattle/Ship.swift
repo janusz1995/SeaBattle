@@ -91,7 +91,7 @@ class Ship {
     private func paintAroundShipPoint(x: Int, y: Int, map: inout Array<Array<Character>>) {
         for i in -1...1 {
             for j in -1...1 {
-                if checkValidPoint(x: x + i, y: y + j) == true && (map[x + i][y + j] == EMPTY_POINT || map[x + i][y + j] == MISS ){
+                if checkValidPoint(x: x + i, y: y + j) == true && (map[x + i][y + j] == EMPTY_POINT || map[x + i][y + j] == MISS) {
                     map[x + i][y + j] = DEATH_SHIP
                 }
             }
