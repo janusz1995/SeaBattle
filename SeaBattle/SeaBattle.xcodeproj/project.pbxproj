@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B6980760A06C90D79BC0C46 /* Ship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B698668215E8CF54BED9409 /* Ship.swift */; };
 		5B698874E523EB989A22DA1C /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B698CA78A359E023B5FCD34 /* main.swift */; };
 		5B698904A45CE3D0A1935603 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B698EA18E0056F55E860F50 /* Game.swift */; };
+		5B69890D86430887D13567DF /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B698B8DAE4857F32340DC76 /* Player.swift */; };
 		5B698A2623859BE744878010 /* ColorizeSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B69838D490585790173869B /* ColorizeSwift.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		5B698032357CACA94A1C5FBB /* SeaBattle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SeaBattle; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B69838D490585790173869B /* ColorizeSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorizeSwift.swift; sourceTree = "<group>"; };
+		5B698668215E8CF54BED9409 /* Ship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ship.swift; sourceTree = "<group>"; };
+		5B698B8DAE4857F32340DC76 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		5B698CA78A359E023B5FCD34 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5B698EA18E0056F55E860F50 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -48,6 +52,8 @@
 				5B698CA78A359E023B5FCD34 /* main.swift */,
 				5B698EA18E0056F55E860F50 /* Game.swift */,
 				5B69838D490585790173869B /* ColorizeSwift.swift */,
+				5B698B8DAE4857F32340DC76 /* Player.swift */,
+				5B698668215E8CF54BED9409 /* Ship.swift */,
 			);
 			path = SeaBattle;
 			sourceTree = "<group>";
@@ -121,6 +127,8 @@
 				5B698874E523EB989A22DA1C /* main.swift in Sources */,
 				5B698904A45CE3D0A1935603 /* Game.swift in Sources */,
 				5B698A2623859BE744878010 /* ColorizeSwift.swift in Sources */,
+				5B69890D86430887D13567DF /* Player.swift in Sources */,
+				5B6980760A06C90D79BC0C46 /* Ship.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
