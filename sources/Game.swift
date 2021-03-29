@@ -80,7 +80,7 @@ class Game {
 
         player.setMove(bool: true)
 
-        while player.aliveShips != 0 && AI.aliveShips != 0 {
+        while player.aliveShips > 0 && AI.aliveShips > 0 {
 
             if player.getMyMove() == true {
                 printMap(map: player.getMap(), isAI: player.isAI)

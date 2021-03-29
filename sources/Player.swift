@@ -78,11 +78,6 @@ class Player {
         map
     }
 
-    // TODO - DELETE WHEN FINISHED, THIS IS Help Getter!
-//    func getShips() -> Array<Ship> {
-//        return ships
-//    }
-
     private func checkDeathShip(x: Int, y: Int, AI: Player) {
         for ship in ships {
             if ship.isAlive() == true {
