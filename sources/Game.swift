@@ -92,7 +92,6 @@ class Game {
             } else {
                 AI.makeShotAI(player: &player)
             }
-
         }
 
         printMap(map: player.getMap(), isAI: player.isAI)
@@ -151,6 +150,7 @@ class Game {
         point = point?.uppercased()
 
         let (check, x, y) = getPoint(point: point)
+
         if check == true {
             player.setMove(bool: AI.takeDamage(x: x, y: y, AI: AI))
         } else {
